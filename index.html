@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>SCP Escape From Foundation</title>
+</head>
+
+<body style="margin: 0px; overflow: hidden;" oncontextmenu="return false;">
+  <canvas id="unity-canvas"
+    style="position: fixed; width: 100%; height: 100%; background: #231F20">
+  </canvas>
+
+  <div id="progress-bar" style="position: absolute; left: 0%; right: 100%; top: 49%; bottom: 49%; background-color: white;"></div>
+
+  <script src="Build/eef build.loader.js"></script>
+  <script>
+    const settings = {
+      dataUrl: "Build/53bd4df2c2ae38568021739201aaefb6.data.unityweb",
+      frameworkUrl: "Build/d23767000709ea3c17fa79cd69344c02.js.unityweb",
+      codeUrl: "Build/6e472794aeb438435d9e837d3a52871b.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Agava",
+      productName: "SCP Escape From Foundation",
+      productVersion: "1.0.1",
+      matchWebGLToCanvasSize: true,
+    };
+
+    const progressBar = document.querySelector("#progress-bar");
+
+    setTimeout(() => {
+      createUnityInstance(document.querySelector("#unity-canvas"), settings, (progress) => {
+        progressBar.style.right = 100 * (1 - progress) + "%";
+      }).then(() => {
+        progressBar.style.display = "none";
+      }).catch((message) => {
+        alert(message);
+      });
+    }, 500); // Wait half a second before loading. Makes page more responsive on reload.
+  </script>
+</body>
+
+</html>
